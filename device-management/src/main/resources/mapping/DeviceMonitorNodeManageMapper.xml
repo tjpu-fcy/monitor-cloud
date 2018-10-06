@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.DeviceMonitorNodeManageMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.DeviceMonitorNodeManage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_alarm_set" property="deviceAlarmSet" jdbcType="BIT" />
+    <result column="device_sign" property="deviceSign" jdbcType="VARCHAR" />
+    <result column="device_protocol" property="deviceProtocol" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, device_name, device_alarm_set, device_sign, device_protocol
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_monitor_node_manage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from device_monitor_node_manage
+    order by id
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from device_monitor_node_manage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.DeviceMonitorNodeManage" >
+    insert into device_monitor_node_manage (id, device_name, device_alarm_set, 
+      device_sign, device_protocol)
+    values (#{id,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{deviceAlarmSet,jdbcType=BIT}, 
+      #{deviceSign,jdbcType=VARCHAR}, #{deviceProtocol,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.DeviceMonitorNodeManage" >
+    insert into device_monitor_node_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="deviceAlarmSet != null" >
+        device_alarm_set,
+      </if>
+      <if test="deviceSign != null" >
+        device_sign,
+      </if>
+      <if test="deviceProtocol != null" >
+        device_protocol,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAlarmSet != null" >
+        #{deviceAlarmSet,jdbcType=BIT},
+      </if>
+      <if test="deviceSign != null" >
+        #{deviceSign,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceProtocol != null" >
+        #{deviceProtocol,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.DeviceMonitorNodeManage" >
+    update device_monitor_node_manage
+    <set >
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAlarmSet != null" >
+        device_alarm_set = #{deviceAlarmSet,jdbcType=BIT},
+      </if>
+      <if test="deviceSign != null" >
+        device_sign = #{deviceSign,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceProtocol != null" >
+        device_protocol = #{deviceProtocol,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.DeviceMonitorNodeManage" >
+    update device_monitor_node_manage
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_alarm_set = #{deviceAlarmSet,jdbcType=BIT},
+      device_sign = #{deviceSign,jdbcType=VARCHAR},
+      device_protocol = #{deviceProtocol,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

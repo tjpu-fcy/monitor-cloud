@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.UserProfileMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.UserProfile" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_sex" property="userSex" jdbcType="BIT" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
+    <result column="user_graduate" property="userGraduate" jdbcType="VARCHAR" />
+    <result column="user_date" property="userDate" jdbcType="DATE" />
+    <result column="user_create_date" property="userCreateDate" jdbcType="TIMESTAMP" />
+    <result column="user_locked" property="userLocked" jdbcType="BIT" />
+    <result column="user_weibo" property="userWeibo" jdbcType="VARCHAR" />
+    <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
+    <result column="user_company" property="userCompany" jdbcType="VARCHAR" />
+    <result column="user_rank" property="userRank" jdbcType="VARCHAR" />
+    <result column="user_image" property="userImage" jdbcType="VARCHAR" />
+    <result column="user_introduce" property="userIntroduce" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, user_sex, user_email, user_id_card, user_graduate, user_date, user_create_date, 
+    user_locked, user_weibo, user_address, user_company, user_rank, user_image, user_introduce
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_profile
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--通过邮箱查找用户-->
+  <select id="findByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user_profile where user_email=#{email};
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_profile
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.UserProfile"
+          useGeneratedKeys="true" keyProperty="id">
+    insert into user_profile (id, user_id, user_sex, 
+      user_email, user_id_card, user_graduate, 
+      user_date, user_create_date, user_locked, 
+      user_weibo, user_address, user_company, 
+      user_rank, user_image, user_introduce
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userSex,jdbcType=BIT}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userIdCard,jdbcType=VARCHAR}, #{userGraduate,jdbcType=VARCHAR}, 
+      #{userDate,jdbcType=DATE}, #{userCreateDate,jdbcType=TIMESTAMP}, #{userLocked,jdbcType=BIT}, 
+      #{userWeibo,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{userCompany,jdbcType=VARCHAR}, 
+      #{userRank,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, #{userIntroduce,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.UserProfile" >
+    insert into user_profile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card,
+      </if>
+      <if test="userGraduate != null" >
+        user_graduate,
+      </if>
+      <if test="userDate != null" >
+        user_date,
+      </if>
+      <if test="userCreateDate != null" >
+        user_create_date,
+      </if>
+      <if test="userLocked != null" >
+        user_locked,
+      </if>
+      <if test="userWeibo != null" >
+        user_weibo,
+      </if>
+      <if test="userAddress != null" >
+        user_address,
+      </if>
+      <if test="userCompany != null" >
+        user_company,
+      </if>
+      <if test="userRank != null" >
+        user_rank,
+      </if>
+      <if test="userImage != null" >
+        user_image,
+      </if>
+      <if test="userIntroduce != null" >
+        user_introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=BIT},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdCard != null" >
+        #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userGraduate != null" >
+        #{userGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="userDate != null" >
+        #{userDate,jdbcType=DATE},
+      </if>
+      <if test="userCreateDate != null" >
+        #{userCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLocked != null" >
+        #{userLocked,jdbcType=BIT},
+      </if>
+      <if test="userWeibo != null" >
+        #{userWeibo,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userCompany != null" >
+        #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userRank != null" >
+        #{userRank,jdbcType=VARCHAR},
+      </if>
+      <if test="userImage != null" >
+        #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="userIntroduce != null" >
+        #{userIntroduce,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.UserProfile" >
+    update user_profile
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=BIT},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userGraduate != null" >
+        user_graduate = #{userGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="userDate != null" >
+        user_date = #{userDate,jdbcType=DATE},
+      </if>
+      <if test="userCreateDate != null" >
+        user_create_date = #{userCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLocked != null" >
+        user_locked = #{userLocked,jdbcType=BIT},
+      </if>
+      <if test="userWeibo != null" >
+        user_weibo = #{userWeibo,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userCompany != null" >
+        user_company = #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userRank != null" >
+        user_rank = #{userRank,jdbcType=VARCHAR},
+      </if>
+      <if test="userImage != null" >
+        user_image = #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="userIntroduce != null" >
+        user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.UserProfile" >
+    update user_profile
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_sex = #{userSex,jdbcType=BIT},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      user_graduate = #{userGraduate,jdbcType=VARCHAR},
+      user_date = #{userDate,jdbcType=DATE},
+      user_create_date = #{userCreateDate,jdbcType=TIMESTAMP},
+      user_locked = #{userLocked,jdbcType=BIT},
+      user_weibo = #{userWeibo,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_company = #{userCompany,jdbcType=VARCHAR},
+      user_rank = #{userRank,jdbcType=VARCHAR},
+      user_image = #{userImage,jdbcType=VARCHAR},
+      user_introduce = #{userIntroduce,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

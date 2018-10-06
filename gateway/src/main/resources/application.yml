@@ -1,0 +1,105 @@
+server:
+    port: 11110
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
+     #关闭自我保护（开发环境）
+    instance:
+        leaseRenewalIntervalInSeconds: 1
+        leaseExpirationDurationInSeconds: 2
+
+
+zuul:
+  ignored-services: "*"
+#  ratelimit: # 网关限流
+#    key-prefix: gate_rate
+#    enabled: true
+#    repository: REDIS #REDIS, JPA, IN_MEMORY
+#    behind-proxy: true
+#    default-policy: #optional - will apply unless specific policy exists
+#      limit: 200
+#      refresh-interval: 60 #default value (in seconds)
+#      type: #optional
+#        - user
+#        - origin
+#        - url
+  routes:
+    user:
+      path: /userManagement/**
+      serviceId: user-management
+    notice:
+      path: /noticeManagement/**
+      serviceId: notice
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 40000
+  ConnectTimeout: 40000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+  #httpclient:
+  #  enabled: false
+  #okhttp:
+  #  enabled: true
+
+
+hystrix:
+#  threadpool:
+#    default:
+#      coreSize: 1000
+#      maxQueueSize: 1000
+#      queueSizeRejectionThreshold: 500
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+          strategy: SEMAPHORE
+
+spring:
+    application:
+        name: gateway
+    datasource:
+        name: test
+        url: jdbc:mysql://172.16.7.201:3306/micro_service_log?useUnicode=true&amp;characterEncoding=UTF-8
+        username: root
+        password: 123.com
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+    redis:
+      database: 0
+      host: 39.105.78.12
+      port: 6379
+      password: FCYfcy1010840201
+      jedis:
+        pool:
+            max-active: 20
+
+mybatis:
+    mapper-locations: classpath:mapping/*.xml
+    type-aliases-package: com.fdway.entity
+
+#过滤器不拦截的地址
+gate:
+  ignore:
+    startWith: /userManagement/registerCheck,/userManagement/loginCheck,/userManagement/forgetPassword

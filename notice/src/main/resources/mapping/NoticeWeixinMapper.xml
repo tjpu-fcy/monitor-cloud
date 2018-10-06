@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.NoticeWeixinMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.NoticeWeixin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="notice_time" property="noticeTime" jdbcType="TIMESTAMP" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="weixin_number" property="weixinNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, context, notice_time, user_name, weixin_number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from notice_weixin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByTime" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from notice_weixin where
+    <if test="start!=null">
+      <![CDATA[   notice_weixin.notice_time>= #{start}   ]]>
+    </if>
+    <if test="end!=null">
+      <![CDATA[  and notice_weixin.notice_time <= #{end} ]]>
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKeys" parameterType="int" >
+    delete from notice_weixin
+    where id in
+    <foreach item="ids" collection="array" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+  </delete>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notice_weixin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.NoticeWeixin" >
+    insert into notice_weixin (id, context, notice_time, 
+      user_name, weixin_number)
+    values (#{id,jdbcType=INTEGER}, #{context,jdbcType=VARCHAR}, #{noticeTime,jdbcType=TIMESTAMP}, 
+      #{userName,jdbcType=VARCHAR}, #{weixinNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.NoticeWeixin" >
+    insert into notice_weixin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+      <if test="noticeTime != null" >
+        notice_time,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="weixinNumber != null" >
+        weixin_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinNumber != null" >
+        #{weixinNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.NoticeWeixin" >
+    update notice_weixin
+    <set >
+      <if test="context != null" >
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinNumber != null" >
+        weixin_number = #{weixinNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.NoticeWeixin" >
+    update notice_weixin
+    set context = #{context,jdbcType=VARCHAR},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      weixin_number = #{weixinNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

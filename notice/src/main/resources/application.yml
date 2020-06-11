@@ -17,7 +17,7 @@ spring:
         name: test
         url: jdbc:mysql://localhost:3306/notice?useUnicode=true&amp;characterEncoding=UTF-8
         username: root
-        password: FCYfcy1010840201
+        password:
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -42,25 +42,25 @@ mybatis:
 
 aliyun:
     sms:
-        accessKeyId: LTAIk118Pw0c7v9A
-        accessKeySecret: 8aXsSF8Xhylv4OkTDpwfbmobkPZZQ5
+        accessKeyId:
+        accessKeySecret:
         #短信签名
         signNamerom: 综合运维云平台
         #短信模板代码
         templateCode: SMS_144940201
 
 weixin:
-    secret: XJwmGHjf1UYz5Ag_kTGTHVAoz-j5R4oC8Pven_2A7uE
-    corpId: wxe8098a39593bc1b5
-    agentid: 1000003
+    secret:
+    corpId:
+    agentid:
 
 mail:
     host: smtp.163.com
     port: 465
     #host: smtp.163.com
     #port: 25
-    user: 13682015820@163.com
-    password: 1010840201
+    user:
+    password:
 
 #系统应用配置
 userConfig:
